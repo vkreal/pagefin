@@ -1,0 +1,17 @@
+<div>
+	<table class="fill">
+		<tr>
+			<td style="width:500px; height:275px;">
+				<div dojoType="dijit.Editor" height="210" style="background-color: white; width:500px; height:275px; border:1px solid silver;"
+					extraPlugins="['hiliteColor', 'foreColor', 'createLink', 'insertImage', 'fontName', 'fontSize', 'formatBlock']" dojoAttachPoint="editor"></div>
+			</td>
+		</tr>
+		<tr>
+			<td align="center">
+				<button dojoAttachPoint="ok" dojoAttachEvent="onClick: _okClick" dojoType=dijit.form.Button>Ok</button>
+				<button dojoAttachPoint="cancel" dojoType=dijit.form.Button dojoAttachEvent="onClick: _cancelClick" >Cancel</button>
+			</td>
+		</tr>
+	</table>
+	
+</div>

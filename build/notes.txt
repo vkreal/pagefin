@@ -1,0 +1,20 @@
+KNOWN ISSUES:
+
+1. FB session timeout breaks any calls to FB
+2. REDO RESIZE WIDGET IMAGE
+
+
+
+GOOGLE CLOSURE SYMBOLIC LINK
+
+mklink /J C:\Users\vkreal\workspace\xkool\src\static\google C:\Users\vkreal\workspace\google
+
+
+
+
+dev setup:
+
+1. google app engine
+2. python 2.5+
+3. eclipse
+4. pydev.org eclipse plugin

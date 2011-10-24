@@ -1,0 +1,46 @@
+
+<table class="fill" border=0 style="border:1px solid silver;" cellspacing=0>
+	{% if pages %}
+		<tr>
+			<td align="center" style="background-color:#3B5998;color:white; height:23px;"><b>Name</b</td>
+			<td align="center" style="background-color:#3B5998;color:white;"><b>Last modified</b</td>
+			<td align="center" style="background-color:#3B5998;color:white;"><b>Actions</b</td>
+		</tr>
+		{% for page in pages %}
+		<tr>
+			<td style="border-bottom:1px solid silver; height:20px;">
+				<div>
+					<a target="_blank" title="{{page.name|escape}}" href="http://{{ HTTP_HOST }}/p/{{ page.key.id }}.html">{{ page.name|escape|elipse_string }}</a>
+				</div>
+			</td>
+			<td style="border-bottom:1px solid silver;">
+				<div>
+					{{ page.updated|timesince }} ago
+				</div>
+			</td>
+			<td align="center" style="border-bottom:1px solid silver;">
+				<a href="#" title="Edit page" onclick="core.dialog.OpenPage.edit('{{page.key}}','{{page.key|page_pubkey}}')"><img src="{{APP_ROOT}}/static/images/application_edit.png"/></a>
+				<!-- <a href="#" title="Share page" onclick="core.dialog.OpenPage.share('{{page.key}}')"><img src="{{APP_ROOT}}/static/images/world_add.png"/></a> 
+				<a href="#" title="Delete page" onclick="core.dialog.OpenPage.remove('{{page.key}}', '{{page.key|page_pubkey}}', {{pageIndex}})"><img src="{{APP_ROOT}}/static/images/page_delete.png"/></a>
+				-->
+			</td>
+		</tr>
+		{% endfor %}
+		<tr>
+			<td colspan="3" style="height:100%;" align="center" valign="bottom">
+				{% if prevIndex %}
+					<a href="#" onclick="core.dialog.OpenPage.getPage('{{prevIndex}}')">Previous</a>
+				{% endif %}
+				{% if nextIndex %}
+					<a href="#" onclick="core.dialog.OpenPage.getPage('{{nextIndex}}')">Next</a>
+				{% endif %}
+			</td>
+		</tr>
+	{% else %}
+		<tr>
+			<td align="center" valign="middle" style="height:100%;">
+				No pages are available, try creating a new page.
+			</td>
+		</tr>
+	{% endif %}
+</table>

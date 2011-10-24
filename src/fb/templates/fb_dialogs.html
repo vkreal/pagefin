@@ -1,0 +1,100 @@
+<!-- Dialogs -->
+   
+    <div dojoType="core.fb.PhotoSelector" id="inlineImageDialog" title="Image Picker" draggable="true">
+		<div dojoType="dijit.layout.BorderContainer" style="width:500px; height:400px;" gutters=false>
+			<div dojoType="dijit.layout.ContentPane" style="overflow:hidden;" region="top">
+			</div>
+			<div dojoType="dijit.layout.TabContainer" region="center" id="__image-dialog-tabs">
+				{% if USE_FACEBOOK_PHOTOS %}
+				<div dojoType="dijit.layout.ContentPane" title="My Facebook Photos" id="__facebook-photos-tab">
+					<div dojoType="dijit.layout.BorderContainer" class=fill gutters=true>
+						<div dojoType="dijit.layout.ContentPane" style="overflow:hidden;" region="top">
+							<b><label style='padding-right:5px;'>Select album:  </label></b>
+							<select style="width:250px;" id="__fbAlbumSelection">
+								<option value="-9999">---- select below ----</option>
+							</select>
+						</div>
+						<div dojoType="dijit.layout.ContentPane" style="overflow:hidden;" region="center" id="__photosContentPane"></div>
+					</div>
+				</div>
+				{% endif %}
+				<div dojoType="dijit.layout.ContentPane" title="Add Image URL">
+					<div class=fill title="Image URL">
+			            <DIV id="__webaddress_panel" style="padding-left:5px;">
+		                        To what image URL?<br /><br />
+		                        <input type="text" size="63" id="__txtwebaddress"/>
+		                        <br />
+		                        <a href="#" id="__testLink">Test this link</a>
+		                        <br />
+		                        <br />
+		                        <DIV unselectable="on"><B unselectable="on">Not sure what to put in the box? </B> 
+		                        	You can use <a target=new href="http://imgur.com/">imgur.com</a> to upload your images and use it here.</DIV>
+		                </DIV>
+		        	</div>
+				</div>
+				{% if ALLOW_PHOTOS_UPLOAD %}
+				<div dojoType="dijit.layout.ContentPane" title="Upload Image" id="__image-upload-tab">
+					<form method="post" id="__uploadForm" enctype="multipart/form-data">
+						<br></br>
+						<div>
+							<label for="the_file">Select an image file on your computer:</label>
+							<br></br>
+							<input type="file" size="30" id="the_file" name="the_file"/>
+						</div>
+						<HR></HR>
+						<div style="font-size:9px;">By uploading a file you certify that you have the right to distribute this picture.</div>
+					</form>
+				</div>
+				{% endif %}
+				<!--  
+				<div dojoType="core.dialog.MoreStuffPane" title="More Stuff" id="__more-stuff-tab">
+				</div>
+				-->
+			</div>
+			<div dojoType="dijit.layout.ContentPane" style="overflow:hidden;" region="bottom">
+				<table style="width:100%">
+					<tr>
+						<td align="center">
+							<button dojoType=dijit.form.Button id="__upload-ok" onclick="dijit.byId('inlineImageDialog').okClick();">Ok</button>
+							<button dojoType=dijit.form.Button onclick="dijit.byId('inlineImageDialog').onCancel();">Cancel</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div id ="__standby_inlineImageDialog" target="inlineImageDialog" dojoType="core.Standby"></div>
+	</div>
+	
+	<div dojoType="core.dialog.Dialog" id="inlineRenamePageDialog" title="Rename" draggable="true">
+		<div dojoType="core.dialog.RenamePage" dialogId="inlineRenamePageDialog" style="width:300px; height:100px;"></div>
+		<div id ="__standby_inlineRenamePageDialog" target="inlineRenamePageDialog" dojoType="core.Standby"></div>
+	</div>
+	<div dojoType="core.dialog.Dialog" id="inlineHelpDialog" title="Help" draggable="true">
+		<div dojoType="core.dialog.Howto" dialogId="inlineHelpDialog" style="width:500px; height:630px;"></div>
+	</div>
+	<div dojoType="core.dialog.Dialog" id="inlinePagePropertiesDialog" title="Properties" draggable="true">
+		<div dojoType="core.dialog.SharePage" dialogId="inlinePagePropertiesDialog" style="width:500px; height:300px;"></div>
+	</div>
+	<div dojoType="core.dialog.Dialog" id="inlineRichTextDialog" title="Rich Text" draggable="true">
+		<div dojoType="core.dialog.Editor" dialogId="inlineRichTextDialog" style="width:500px; height:300px;"></div>
+	</div>
+	   <div dojoType="core.dialog.Dialog" id="inlineCreateDialog" Recaptcha="true" title="Creat a New Page" draggable="true">
+		<div dojoType="core.dialog.FB_NewPage" dialogId="inlineCreateDialog" style="width:400px; height:200px;"></div>
+	</div>
+	<div id ="__standby_inlineCreateDialog" target="inlineCreateDialog" dojoType="core.Standby"></div>
+	<div dojoType="core.dialog.Dialog" id="inlineShareDialog" title="Share This Page" draggable="true">
+		<div dojoType="core.dialog.SharePage" dialogId="inlineShareDialog" style="width:500px; height:300px;"></div>
+	</div>
+	<div dojoType="core.dialog.Dialog" id="inlineOpenDialog" title="Open Page" draggable="true">
+		<div dojoType="core.dialog.OpenPage" dialogId="inlineOpenDialog" style="width:500px; height:400px;"></div>
+		<div id ="__standby_inlineOpenDialog" target="inlineOpenDialog" dojoType="core.Standby"></div>
+	</div>
+	<div dojoType="core.dialog.Dialog" id="inlineEmbedSelectorDialog" title="Embed Code" draggable="true">
+		<div dojoType="core.dialog.EmbedSelector" dialogId="inlineEmbedSelectorDialog" style="width:500px; height:300px;"></div>
+	</div>
+	<form method="post" id="__saveForm"><input type="hidden" id="__saveHidden" name="__saveHidden"></input></form>
+	   <div dojoType="dojox.widget.Toaster" style="font-size:16px;"
+		separator="&lt;hr&gt;" positionDirection="tl-right" 
+		messageTopic="systemToasterTopic"></div>
+   <!-- END DIALOGS -->
+	    

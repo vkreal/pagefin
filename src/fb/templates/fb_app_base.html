@@ -1,0 +1,134 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	    <link rel="stylesheet" href="{{APP_ROOT}}/static/css/app.css?v={{APP_VERSION}}" />
+    	<style type="text/css" charset="utf-8">@import "http://ajax.googleapis.com/ajax/libs/dojo/1.5.0/dijit/themes/{{THEME}}/{{THEME}}.css?v={{APP_VERSION}}";</style>
+		<script src="http://static.ak.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
+		<script type="text/javascript"> 
+		//<![CDATA[
+			FB_RequireFeatures(["Api", "Connect", "CanvasUtil", "XFBML"], function()
+			{ // Create an ApiClient object, passing app's API key and // a site relative URL to xd_receiver.htm
+				FB.Facebook.init('{{FbApiKey}}', '{{APP_ROOT}}/static/xd_receiver.htm'); 
+				facebookAPI = FB.Facebook.apiClient; 
+				//FB.XdComm.Server.init('static/xd_receiver.htm');
+			    //FB.CanvasClient.startTimerToSizeToContent();
+			    FB.CanvasClient.setCanvasHeight("1200px");
+				// require user to login
+				//facebookAPI.requireLogin(function(exception)
+				//{ 
+				//}); 
+			});
+		//]]> 
+		</script>
+	</head>
+	<body class="{{THEME}}">
+		<img id="__appLoading" style="text-align: center; display:block;margin-left:auto;margin-right:auto;" src="{{APP_ROOT}}/static/images/ajax-loader.gif" /> 
+	    <div dojoType="dijit.layout.BorderContainer" class="fill" gutters=false style="visibility:hidden;" id="__mainApp">
+	    		{% if IsNotFan %}
+	    		<div dojoType="dijit.layout.ContentPane" region="top" style="overflow:hidden; height:60px;">
+	    			<div><fb:fan profile_id="{{PROFILE_ID}}" stream="0" connections="0" width="250" height="60"></fb:fan></div>
+	    		</div>
+	    		{% endif %}
+	            <div dojoType="dijit.layout.ContentPane" region="center" style="overflow:hidden;" id="mainBorderContainer">
+	                 <div dojoType="dijit.layout.BorderContainer" style="overflow:hidden;">      
+	                      <div dojoType="core.Toolbar" style="height:25px;" region="top" id="toolbar">
+	                        <div dojoType="dijit.form.Button" title="Save current page" id="btnSave" iconClass="saveIcon" onclick="dojo.publish('/action/global', ['save', this]);" disabled>
+				               Save Page
+			                </div>
+	                        <div dojoType="dijit.form.Button" title="Create a new page" id="btnNew" iconClass="newIcon" onclick="dojo.publish('/action/global', ['new', this]);">
+				               New Page
+			                </div>
+	                        <div dojoType="dijit.form.Button" title="Open page" id="btnOpen" iconClass="openIcon" onclick="dojo.publish('/action/global', ['open', this]);">
+				                Open Page
+			                </div>
+			                <div dojoType="dijit.ToolbarSeparator"></div>
+			                <div dojoType="dijit.form.Button" title="Preview current page" id="btnPreview" iconClass="previewIcon" showLabel="true" onclick="dojo.publish('/action/global', ['preview', this]);" disabled>
+				                Preview
+			                </div>
+			                <div dojoType="dijit.form.Button" title="Share current page" id="btnShare" iconClass="publishIcon" showLabel="true" onclick="core.Main.FB_StreamPublish();" disabled>
+				                Share
+			                </div>
+			                 <div dojoType="dijit.ToolbarSeparator"></div>
+			                 <div dojoType="dijit.form.DropDownButton" title="Add widgets to page" id="btnAddStuff" disabled>
+			                   <span>Add Stuff</span>
+			                   <div dojoType="core.Menu" style="display: none">
+			                        <div dojoType="core.MenuLabel" label="Add stuff to page">Add stuff to page</div>
+			                        <div dojoType="dijit.MenuSeparator"></div>
+			                        <div dojoType="dijit.MenuItem" iconClass="textIcon" onclick="dojo.publish('/action/widget/add', ['text', this]);">Text</div>
+			                        <div dojoType="dijit.MenuItem" iconClass="pictureIcon" onclick="dojo.publish('/action/widget/add', ['image', this]);">Picture</div>
+			                        <div dojoType="dijit.MenuItem" iconClass="embeddedIcon" onclick="dojo.publish('/action/widget/add', ['embed', this]);">Embed</div>
+			                   </div>
+		                    </div>
+		                    <div dojoType="dijit.form.DropDownButton" id="btnMore" disabled>
+			                   <span>More Actions</span>
+			                   <div dojoType="core.Menu" style="display: none">         
+			                        <div dojoType="core.MenuLabel" label="Edit Page">Edit Page</div>
+			                        <div dojoType="dijit.MenuSeparator"></div>
+			                        <div dojoType="dijit.MenuItem" iconClass="backgroundIcon" onclick="dojo.publish('/action/global', ['bgImage', this]);">Background Image</div>
+			                        <div dojoType="dijit.MenuItem" onclick="dojo.publish('/action/global', ['clearImage', this]);">Clear Background Image</div>
+			                        <div dojoType="dijit.PopupMenuItem">
+			                            <span>Background Color</span>
+			                            <div dojoType="dijit.ColorPalette" onChange="dojo.publish('/action/global', ['colorPalette', this]);"></div>
+		                            </div>
+		                            <div dojoType="dijit.MenuItem" iconClass="page_properties" title="Properties" onclick="dojo.publish('/action/global', ['pageProp', this]);">Properties</div>
+		                            <div dojoType="core.MenuLabel" label="Actions">Actions</div>
+			                        <div dojoType="dijit.MenuSeparator"></div>
+			                       <!--  	<div dojoType="dijit.MenuItem" iconClass="toggleGridIcon" onclick="dojo.publish('/action/global', ['toggleGrid', this]);">Toggle Grid</div>  -->
+			                        <div dojoType="dijit.MenuItem" iconClass="renameIcon" onclick="dojo.publish('/action/global', ['rename', this]);">Rename Page</div>
+			                        <div dojoType="dijit.MenuItem" iconClass="deleteIcon" onclick="dojo.publish('/action/global', ['delete', this]);">Delete Page</div>
+			                   </div>
+		                    </div>
+		                    <div dojoType="dijit.form.Button" iconClass="helpIcon" title="Help" showLabel="true" onclick="dojo.publish('/action/global', ['help', this]);">
+				                Help
+			                </div>
+	                     </div>
+	                     <div id="pageContentPane" dojoType="core.PageContentPane" region="center" style="background-color:silver;" canvasHeight="700"></div>
+	                </div>
+	        </div>
+	    </div>
+	    <div id ="__standby_mainApp" target="mainBorderContainer" dojoType="core.Standby"></div>
+	    {% include "fb_dialogs.html" %}
+	</body>
+	<script type="text/javascript">APP_URL="{{APP_URL}}"; AP_PAGE_CREATOR="{{AP_PAGE_CREATOR}}";APP_ROOT="{{APP_ROOT}}";PAGE_KEY="{{PAGE_KEY}}";SAVE_PUBLIC_KEY="{{SAVE_PUBLIC_KEY}}"; IS_FACEBOOK=true; FACEBOOK_USER_ID={{FACEBOOK_USER_ID}}; FACEBOOK_USER_KEY="{{FACEBOOK_USER_KEY}}";</script>
+	{% if debug %}
+	<script type="text/javascript" charset="utf-8" src="{{APP_ROOT}}/static/{{DOJO_VERSION}}/dojo/dojo.js?v={{APP_VERSION}}" 
+	       djConfig="parseOnLoad: true, locale: 'en-us', isDebug:false, forceBgIframe: true"></script>
+	        <script type="text/javascript">
+			dojo.registerModulePath("core", "../../core");
+		    dojo.require("core.fb.Main");
+	    </script>
+	{% else %}
+		<script type="text/javascript" charset="utf-8" src="{{APP_ROOT}}/static/{{DOJO_VERSION}}/dojo/dojo.js?v={{APP_VERSION}}" 
+	       djConfig="parseOnLoad: true, locale: 'en-us', isDebug:false, forceBgIframe: true"></script>
+	    <script type="text/javascript" charset="utf-8" src="{{APP_ROOT}}/static/{{DOJO_VERSION}}/dojo/facebook.js?v={{APP_VERSION}}" ></script>
+		<script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+			</script>
+			<script type="text/javascript">
+			try {
+			var pageTracker = _gat._getTracker("UA-4644289-2");
+			pageTracker._trackPageview();
+			} catch(err) {}
+		</script>
+	{% endif %}
+	<script type="text/javascript" charset="utf-8">
+		new core.fb.Main();
+	</script>
+	{% if page %}
+		<script type="text/javascript" src="{{APP_ROOT}}/a/jsonpage/{{page.pk}}.json?t={{TICKS}}"></script>
+		<script type="text/javascript">
+			try {
+				dojo.addOnLoad(function(){ dijit.byId('pageContentPane').setPage( JSON_PAGE ); })
+			}
+			catch(e){alert('We are unable to load your page, please try again later.');}
+		</script>
+	{% endif %}
+	<script type="text/javascript">
+		try {
+			dojo.addOnLoad(function(){dojo.style( dojo.byId("__appLoading"), 'display', 'none');dojo.style( dijit.byId("__mainApp").domNode, 'visibility', 'visible'); });
+		}
+		catch(e){}
+	</script>
+	{% include "fb_welcome.html" %}
+</html>

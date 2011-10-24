@@ -1,0 +1,35 @@
+{% if just_installed %}
+<div dojoType="core.dialog.Dialog" id="inlineWelcomeDialog" title="Quick Start" draggable="true">
+	<div style="width:500px; height:370px;">
+		<table width=100%>
+			<tr>
+				<td align=center>
+					<span style="text-align:center;">
+						<h2>
+							Welcome
+						</h2>
+					</span>
+				</td>
+			</tr>
+		</table>
+		<h4>How to create a page:</h4>
+		<div style="padding-left:10px;">Click on <img src="http://pagefin.appspot.com/static/images/page_white.png"/> 'New Page' on the main toolbar. A blank page will open, ready to use.</div>
+		<h4>How to add stuff (widgets) to your new page:</h4>
+		<div style="padding-left:10px;">Click on "Add Stuff" on the main toolbar. A new box will open where you can add text, pictures, or video. You can add as many boxes per page as you like.</div>
+		<h4>How to share your page:</h4>
+		<div style="padding-left:10px;">To share your new page with friends and family, click on <img src="http://pagefin.appspot.com/static/images/world_add.png"/> 'Share' on the main toolbar. It will post as a status update.</div>
+		<h4>How to get more help:</h4>
+		<div style="padding-left:10px;">Click on <img src="http://pagefin.appspot.com/static/images/help.png"/> 'Help' on the main toolbar.</div>
+		<br></br>
+		<div><input type="checkbox" onclick="(new core.fb.AjaxServices).toggleWelcomeMessage(this.checked);"></input> <label>Don't show this message again.</label></div>
+		<span style="float:right;">
+			<button dojotype="dijit.form.Button" onclick="dijit.byId('inlineWelcomeDialog').hide()">Close</button>
+		</span>
+	</div>
+</div>
+<script type="text/javascript">
+	dojo.addOnLoad(function(){
+		dijit.byId("inlineWelcomeDialog").show(null, '{DCB559D5-5CB1-4c3f-A6DD-9C70C3CC86AB}');						
+	});
+</script>
+{% endif %}

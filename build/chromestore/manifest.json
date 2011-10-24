@@ -1,0 +1,17 @@
+{
+  "name": "Page Creator",
+  "description": "Thinking of creating a website? Pagefin is a free and easy way to create and share webpages. NO LOGIN REQUIRED!",
+  "version": "1.0.0.2",
+  "icons": {
+    "128": "icon_128.png"
+  },
+  "app": {
+    "urls": [
+      "http://www.pagefin.com/",
+	  "http://www.pagefin.com/a/?n=1&ref=home"
+    ],
+    "launch": {
+      "web_url": "http://www.pagefin.com/"
+    }
+  }
+}
